@@ -196,10 +196,13 @@ class QCModelORCA ( QCModel ):
 
             while True:
                 try:
-                    line = next ( outFile ).strip(" *-")
+                    line = next ( outFile ).strip()
                     OrcaVersion = re.search(r"Program Version\s+([0-9]+\.[0-9]+\.[0-9]+)", line)  
-                    if OrcaVersion: print(f"orca version: {OrcaVersion.group(0).split()[-1]}")
-                    # . CHELPG charges.
+                    if OrcaVersion: 
+                      print(f"orca version: {OrcaVersion.group(0).split()[-1]}")
+                    if int(OrcaVeersion[0]) >= 6:
+                      line = line.strip(" -*")
+                  # . CHELPG charges.
                     if line == "Chelpg Charges":
                         data = Array.WithExtent ( n )
                         line = next ( outFile )
